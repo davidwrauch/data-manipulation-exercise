@@ -1,0 +1,181 @@
+library(readxl)
+
+#join 3 datasets using cbind, datasets require a good deal of cleanup first
+
+#read data, skip first line
+DS_exercise_data_clean_dl1c <-read_xls("dl1c.xls", skip=10)
+
+View(DS_exercise_data_clean_dl1c)
+names(DS_exercise_data_clean_dl1c)
+class(DS_exercise_data_clean_dl1c)
+
+#rename
+DS_exercise_data_clean_dl1c<- rename(DS_exercise_data_clean_dl1c,
+               state = '...1',
+               LICENSED_DRIVERS_male_drivers ='LICENSED DRIVERS',
+               LICENSED_DRIVERS_PERCENT_MALE_DRIVERS_OF_TOTAL ='...3',
+               LICENSED_DRIVERS_female_drivers ='...4',
+               LICENSED_DRIVERS_PERCENT_FEMALE_DRIVERS_OF_TOTAL ='...5',
+               LICENSED_DRIVERS_total_drivers ='...6',
+               LICENSED_DRIVERS_RATIO_LICENSED_DRIVERS_PRIVATE_AND_COMMERCIAL_MOTOR_VEHICLES_REGISTERED ='RATIO--LICENSED',
+               POPULATION_3_total_resident ='POPULATION  3/',
+               POPULATION_3_DRIVING_AGE_16_AND_OVER_male 		 ='...9',
+               POPULATION_3_DRIVING_AGE_16_AND_OVER_female 		 ='...10',
+               POPULATION_3_DRIVING_AGE_16_AND_OVER_total 		 ='...11',
+               DRIVERS_PER_1000_TOTAL_RESIDENT_POPULATION 		 ='DRIVERS',
+               DRIVERS_PER_1000_DRIVING_AGE_POPULATION 		 ='DRIVERS'
+               )
+
+#delete first 3 rows of redundant column names
+DS_exercise_data_clean_dl1c <- tail(DS_exercise_data_clean_dl1c, -3)
+
+#delete last 2 rows
+DS_exercise_data_clean_dl1c <- head(DS_exercise_data_clean_dl1c, -2)
+
+
+#####second dataset, male
+DS_exercise_data_clean_dl22_male <-read_xls("dl22.xls", sheet=1)
+
+View(DS_exercise_data_clean_dl22_male)
+names(DS_exercise_data_clean_dl22_male)
+
+#get rid of unneeded columns
+DS_exercise_data_clean_dl22_male = subset(DS_exercise_data_clean_dl22_male, select = -c(18,19,30,31))
+
+#rename
+DS_exercise_data_clean_dl22_male<- rename(DS_exercise_data_clean_dl22_male,
+                state= 1,
+                LICENSED_MALE_DRIVERS_BY_AGE_2014_19_and_under= 2,
+                LICENSED_MALE_DRIVERS_BY_AGE_2014_20_24= 3,
+                LICENSED_MALE_DRIVERS_BY_AGE_2014_25_29= 4,
+                LICENSED_MALE_DRIVERS_BY_AGE_2014_30_34= 5,
+                LICENSED_MALE_DRIVERS_BY_AGE_2014_35_39= 6,
+                LICENSED_MALE_DRIVERS_BY_AGE_2014_40_44= 7,
+                LICENSED_MALE_DRIVERS_BY_AGE_2014_45_49= 8,
+                LICENSED_MALE_DRIVERS_BY_AGE_2014_50_54= 9,
+                LICENSED_MALE_DRIVERS_BY_AGE_2014_55_59= 10,
+                LICENSED_MALE_DRIVERS_BY_AGE_2014_60_64= 11,
+                LICENSED_MALE_DRIVERS_BY_AGE_2014_65_69= 12,
+                LICENSED_MALE_DRIVERS_BY_AGE_2014_70_74= 13,
+                LICENSED_MALE_DRIVERS_BY_AGE_2014_75_79= 14,
+                LICENSED_MALE_DRIVERS_BY_AGE_2014_80_84= 15,
+                LICENSED_MALE_DRIVERS_BY_AGE_2014_85_AND_OVER = 16,
+                LICENSED_MALE_DRIVERS_BY_AGE_2014_TOTAL= 17,
+                LICENSED_YOUNG_MALE_DRIVERS_BY_AGE_2014_less_than_16= 18,
+                LICENSED_YOUNG_MALE_DRIVERS_BY_AGE_2014_16= 19,
+                LICENSED_YOUNG_MALE_DRIVERS_BY_AGE_2014_17= 20,
+                LICENSED_YOUNG_MALE_DRIVERS_BY_AGE_2014_18= 21,
+                LICENSED_YOUNG_MALE_DRIVERS_BY_AGE_2014_19= 22,
+                LICENSED_YOUNG_MALE_DRIVERS_BY_AGE_2014_20= 23,
+                LICENSED_YOUNG_MALE_DRIVERS_BY_AGE_2014_21= 24,
+                LICENSED_YOUNG_MALE_DRIVERS_BY_AGE_2014_22= 25,
+                LICENSED_YOUNG_MALE_DRIVERS_BY_AGE_2014_23= 26,
+                LICENSED_YOUNG_MALE_DRIVERS_BY_AGE_2014_24= 27,
+)
+                  
+#delete first 5 rows of redundant column names
+DS_exercise_data_clean_dl22_male <- tail(DS_exercise_data_clean_dl22_male, -6)
+
+
+#####third dataset, female
+DS_exercise_data_clean_dl22_female <-read_xls("dl22.xls", sheet=2)
+
+View(DS_exercise_data_clean_dl22_female)
+names(DS_exercise_data_clean_dl22_female)
+
+#get rid of unneeded columns
+DS_exercise_data_clean_dl22_female = subset(DS_exercise_data_clean_dl22_female, select = -c(18,19,30,31))
+
+#rename
+DS_exercise_data_clean_dl22_female<- rename(DS_exercise_data_clean_dl22_female,
+                                          state= 1,
+                                          LICENSED_FEMALE_DRIVERS_BY_AGE_2014_19_and_under= 2,
+                                          LICENSED_FEMALE_DRIVERS_BY_AGE_2014_20_24= 3,
+                                          LICENSED_FEMALE_DRIVERS_BY_AGE_2014_25_29= 4,
+                                          LICENSED_FEMALE_DRIVERS_BY_AGE_2014_30_34= 5,
+                                          LICENSED_EMALE_DRIVERS_BY_AGE_2014_35_39= 6,
+                                          LICENSED_FEMALE_DRIVERS_BY_AGE_2014_40_44= 7,
+                                          LICENSED_EMALE_DRIVERS_BY_AGE_2014_45_49= 8,
+                                          LICENSED_FEMALE_DRIVERS_BY_AGE_2014_50_54= 9,
+                                          LICENSED_FEMALE_DRIVERS_BY_AGE_2014_55_59= 10,
+                                          LICENSED_FEMALE_DRIVERS_BY_AGE_2014_60_64= 11,
+                                          LICENSED_FEMALE_DRIVERS_BY_AGE_2014_65_69= 12,
+                                          LICENSED_FEMALE_DRIVERS_BY_AGE_2014_70_74= 13,
+                                          LICENSED_FEMALE_DRIVERS_BY_AGE_2014_75_79= 14,
+                                          LICENSED_FEMALE_DRIVERS_BY_AGE_2014_80_84= 15,
+                                          LICENSED_FEMALE_DRIVERS_BY_AGE_2014_85_AND_OVER = 16,
+                                          LICENSED_FEMALE_DRIVERS_BY_AGE_2014_TOTAL= 17,
+                                          LICENSED_YOUNG_FEMALE_DRIVERS_BY_AGE_2014_less_than_16= 18,
+                                          LICENSED_YOUNG_FEMALE_DRIVERS_BY_AGE_2014_16= 19,
+                                          LICENSED_YOUNG_FEMALE_DRIVERS_BY_AGE_2014_17= 20,
+                                          LICENSED_YOUNG_FEMALE_DRIVERS_BY_AGE_2014_18= 21,
+                                          LICENSED_YOUNG_FEMALE_DRIVERS_BY_AGE_2014_19= 22,
+                                          LICENSED_YOUNG_FEMALE_DRIVERS_BY_AGE_2014_20= 23,
+                                          LICENSED_YOUNG_FEMALE_DRIVERS_BY_AGE_2014_21= 24,
+                                          LICENSED_YOUNG_FEMALE_DRIVERS_BY_AGE_2014_22= 25,
+                                          LICENSED_YOUNG_FEMALE_DRIVERS_BY_AGE_2014_23= 26,
+                                          LICENSED_YOUNG_FEMALE_DRIVERS_BY_AGE_2014_24= 27,
+)
+
+#delete first 5 rows of redundant column names
+DS_exercise_data_clean_dl22_female <- tail(DS_exercise_data_clean_dl22_female, -6)
+
+#delete last 4 rows
+DS_exercise_data_clean_dl22_female <- head(DS_exercise_data_clean_dl22_female, -4)
+
+
+#####fourth dataset, total
+DS_exercise_data_clean_dl22_total <-read_xls("dl22.xls", sheet=3)
+
+View(DS_exercise_data_clean_dl22_total)
+names(DS_exercise_data_clean_dl22_total)
+
+#get rid of unneeded columns
+DS_exercise_data_clean_dl22_total = subset(DS_exercise_data_clean_dl22_total, select = -c(18,19,30,31))
+
+#rename
+DS_exercise_data_clean_dl22_total<- rename(DS_exercise_data_clean_dl22_total,
+                                          state= 1,
+                                          LICENSED_TOTAL_DRIVERS_BY_AGE_2014_19_and_under= 2,
+                                          LICENSED_TOTAL_DRIVERS_BY_AGE_2014_20_24= 3,
+                                          LICENSED_TOTAL_DRIVERS_BY_AGE_2014_25_29= 4,
+                                          LICENSED_TOTAL_DRIVERS_BY_AGE_2014_30_34= 5,
+                                          LICENSED_TOTAL_DRIVERS_BY_AGE_2014_35_39= 6,
+                                          LICENSED_TOTAL_DRIVERS_BY_AGE_2014_40_44= 7,
+                                          LICENSED_TOTAL_DRIVERS_BY_AGE_2014_45_49= 8,
+                                          LICENSED_TOTAL_DRIVERS_BY_AGE_2014_50_54= 9,
+                                          LICENSED_TOTAL_DRIVERS_BY_AGE_2014_55_59= 10,
+                                          LICENSED_TOTAL_DRIVERS_BY_AGE_2014_60_64= 11,
+                                          LICENSED_TOTAL_DRIVERS_BY_AGE_2014_65_69= 12,
+                                          LICENSED_TOTAL_DRIVERS_BY_AGE_2014_70_74= 13,
+                                          LICENSED_TOTAL_DRIVERS_BY_AGE_2014_75_79= 14,
+                                          LICENSED_TOTAL_DRIVERS_BY_AGE_2014_80_84= 15,
+                                          LICENSED_TOTAL_DRIVERS_BY_AGE_2014_85_AND_OVER = 16,
+                                          LICENSED_TOTAL_DRIVERS_BY_AGE_2014_TOTAL= 17,
+                                          LICENSED_YOUNG_TOTAL_DRIVERS_BY_AGE_2014_less_than_16= 18,
+                                          LICENSED_YOUNG_MTOTAL_DRIVERS_BY_AGE_2014_16= 19,
+                                          LICENSED_YOUNG_TOTAL_DRIVERS_BY_AGE_2014_17= 20,
+                                          LICENSED_YOUNG_TOTAL_DRIVERS_BY_AGE_2014_18= 21,
+                                          LICENSED_YOUNG_TOTAL_DRIVERS_BY_AGE_2014_19= 22,
+                                          LICENSED_YOUNG_TOTAL_DRIVERS_BY_AGE_2014_20= 23,
+                                          LICENSED_YOUNG_TOTAL_DRIVERS_BY_AGE_2014_21= 24,
+                                          LICENSED_YOUNG_TOTAL_DRIVERS_BY_AGE_2014_22= 25,
+                                          LICENSED_YOUNG_TOTAL_DRIVERS_BY_AGE_2014_23= 26,
+                                          LICENSED_YOUNG_TOTAL_DRIVERS_BY_AGE_2014_24= 27,
+)
+
+#delete first 5 rows of redundant column names
+DS_exercise_data_clean_dl22_total <- tail(DS_exercise_data_clean_dl22_total, -6)
+
+#delete last 12 rows
+DS_exercise_data_clean_dl22_total <- head(DS_exercise_data_clean_dl22_total, -12)
+
+
+##
+combined_data <- cbind(DS_exercise_data_clean_dl1c, DS_exercise_data_clean_dl22_male, DS_exercise_data_clean_dl22_female, DS_exercise_data_clean_dl22_total)
+View(combined_data)
+
+combined_data5 <- head (combined_data,5)
+View(combined_data5)
+
+write.csv(combined_data5,"/Users/davidrauch/Documents/work/combined_data5.csv",row.names = TRUE)
