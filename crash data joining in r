@@ -1,0 +1,122 @@
+library(plyr)
+library(dplyr)
+library(tidyverse)
+
+#bring in each year of data, 2015-2019, each year has three files which need to be joined, then the various years need to be joined together into one master file
+
+#######2019
+CSV_ACCIDENT_2019_accident <-read_csv("/Users/davidrauch/Documents/FARS2019NationalCSV/ACCIDENT.CSV")
+View(CSV_ACCIDENT_2019_accident)
+CSV_ACCIDENT_2019_accident <- CSV_ACCIDENT_2019_accident %>% filter( CITY %in% c(1260, 4170))  %>% filter( STATE %in% c(26, 36))
+#from ACS data for fatalities per population calc
+CSV_ACCIDENT_2019_accident <-
+  CSV_ACCIDENT_2019_accident %>%
+  mutate(population = case_when(CITY <= 1260 ~ 670052, CITY <= 4170 ~ 8336817))
+
+
+CSV_ACCIDENT_2019_person <-read_csv("/Users/davidrauch/Documents/FARS2019NationalCSV/PERSON.CSV")
+View(CSV_ACCIDENT_2019_person)
+names(CSV_ACCIDENT_2019_person)
+
+CSV_ACCIDENT_2019_vehicle <-read_csv("/Users/davidrauch/Documents/FARS2019NationalCSV/VEHICLE.CSV")
+View(CSV_ACCIDENT_2019_vehicle)
+
+CSV_ACCIDENT_2019 <- left_join(CSV_ACCIDENT_2019_accident,CSV_ACCIDENT_2019_person,by="ST_CASE")
+View(CSV_ACCIDENT_2019)
+
+CSV_ACCIDENT_2019 <- left_join(CSV_ACCIDENT_2019,CSV_ACCIDENT_2019_vehicle,by="ST_CASE")
+View(CSV_ACCIDENT_2019)
+
+
+##########2018
+CSV_ACCIDENT_2018_accident <-read_csv("/Users/davidrauch/Documents/FARS2018NationalCSV/ACCIDENT.CSV")
+View(CSV_ACCIDENT_2018_accident)
+CSV_ACCIDENT_2018_accident <- CSV_ACCIDENT_2018_accident %>% filter( CITY %in% c(1260, 4170))%>% filter( STATENAME %in% c("New York", "Michigan"))
+
+CSV_ACCIDENT_2018_accident <-
+  CSV_ACCIDENT_2018_accident %>%
+  mutate(population = case_when(CITY <= 1260 ~ 672681, CITY <= 4170 ~ 8398748))
+
+CSV_ACCIDENT_2018_person <-read_csv("/Users/davidrauch/Documents/work/FARS2018NationalCSV/PERSON.CSV")
+View(CSV_ACCIDENT_2018_person)
+
+CSV_ACCIDENT_2018_vehicle <-read_csv("/Users/davidrauch/Documents/FARS2018NationalCSV/VEHICLE.CSV")
+View(CSV_ACCIDENT_2019_vehicle)
+
+CSV_ACCIDENT_2018 <- left_join(CSV_ACCIDENT_2018_accident,CSV_ACCIDENT_2018_person,by="ST_CASE")
+
+CSV_ACCIDENT_2018 <- left_join(CSV_ACCIDENT_2018,CSV_ACCIDENT_2018_vehicle,by="ST_CASE")
+View(CSV_ACCIDENT_2018)
+
+##########2017
+CSV_ACCIDENT_2017_accident <-read_csv("/Users/davidrauch/Documents/FARS2017NationalCSV/ACCIDENT.CSV")
+View(CSV_ACCIDENT_2017_accident)
+CSV_ACCIDENT_2017_accident <- CSV_ACCIDENT_2017_accident %>%  filter( CITY %in% c(1260, 4170))%>% filter( STATENAME %in% c("New York", "Michigan"))
+
+CSV_ACCIDENT_2017_accident <-
+  CSV_ACCIDENT_2017_accident %>%
+  mutate(population = case_when(CITY <= 1260 ~ 673103, CITY <= 4170 ~ 8622698))
+
+CSV_ACCIDENT_2017_person <-read_csv("/Users/davidrauch/Documents/FARS2017NationalCSV/PERSON.CSV")
+View(CSV_ACCIDENT_2017_person)
+
+CSV_ACCIDENT_2017_vehicle <-read_csv("/Users/davidrauch/Documents/work/FARS2017NationalCSV/VEHICLE.CSV")
+View(CSV_ACCIDENT_2017_vehicle)
+
+CSV_ACCIDENT_2017 <- left_join(CSV_ACCIDENT_2017_accident,CSV_ACCIDENT_2017_person,by="ST_CASE")
+
+CSV_ACCIDENT_2017 <- left_join(CSV_ACCIDENT_2017,CSV_ACCIDENT_2017_vehicle,by="ST_CASE")
+View(CSV_ACCIDENT_2017)
+
+##########2016
+CSV_ACCIDENT_2016_accident <-read_csv("/Users/davidrauch/Documents/FARS2016NationalCSV/ACCIDENT.CSV")
+View(CSV_ACCIDENT_2016_accident)
+CSV_ACCIDENT_2016_accident <- CSV_ACCIDENT_2016_accident %>% filter( CITY %in% c(1260, 4170))%>% filter( STATENAME %in% c("New York", "Michigan"))
+
+CSV_ACCIDENT_2016_accident <-
+  CSV_ACCIDENT_2016_accident %>%
+  mutate(population = case_when(CITY <= 1260 ~ 672829, CITY <= 4170 ~ 8537673))
+
+CSV_ACCIDENT_2016_person <-read_csv("/Users/davidrauch/Documents/work/FARS2016NationalCSV/PERSON.CSV")
+View(CSV_ACCIDENT_2016_person)
+
+CSV_ACCIDENT_2016_vehicle <-read_csv("/Users/davidrauch/Documents/FARS2016NationalCSV/VEHICLE.CSV")
+View(CSV_ACCIDENT_2016_vehicle)
+
+CSV_ACCIDENT_2016 <- left_join(CSV_ACCIDENT_2016_accident,CSV_ACCIDENT_2016_person,by="ST_CASE")
+
+CSV_ACCIDENT_2016 <- left_join(CSV_ACCIDENT_2016,CSV_ACCIDENT_2019_vehicle,by="ST_CASE")
+View(CSV_ACCIDENT_2016)
+
+##########2015
+CSV_ACCIDENT_2015_accident <-read_csv("/Users/davidrauch/Documents/FARS2015NationalCSV/ACCIDENT.CSV")
+View(CSV_ACCIDENT_2015_accident)
+CSV_ACCIDENT_2015_accident <- CSV_ACCIDENT_2015_accident %>% filter( CITY %in% c(1260, 4170))%>% filter( STATE %in% c(26, 36))
+
+CSV_ACCIDENT_2015_accident <-
+  CSV_ACCIDENT_2015_accident %>%
+  mutate(population = case_when(CITY <= 1260 ~ 677124, CITY <= 4170 ~ 8550405))
+
+CSV_ACCIDENT_2015_person <-read_csv("/Users/davidrauch/Documents/work/FARS2015NationalCSV/PERSON.CSV")
+View(CSV_ACCIDENT_2015_person)
+names(CSV_ACCIDENT_2015_person)
+
+CSV_ACCIDENT_2015_vehicle <-read_csv("/Users/davidrauch/Documents/FARS2015NationalCSV/VEHICLE.CSV")
+View(CSV_ACCIDENT_2015_vehicle)
+
+CSV_ACCIDENT_2015 <- left_join(CSV_ACCIDENT_2015_accident,CSV_ACCIDENT_2015_person,by="ST_CASE")
+
+CSV_ACCIDENT_2015 <- left_join(CSV_ACCIDENT_2015,CSV_ACCIDENT_2015_vehicle,by="ST_CASE")
+View(CSV_ACCIDENT_2015)
+
+########Merge and analysis, only look by st name due to fanout due to joins, at the person/vehicle level
+Accident_Combined <- rbind.fill(CSV_ACCIDENT_2015,CSV_ACCIDENT_2016,CSV_ACCIDENT_2017,CSV_ACCIDENT_2018,CSV_ACCIDENT_2019)
+View(Accident_Combined)
+
+write.csv(Accident_Combined,"/Users/davidrauch/Documents/Accident_Combined.csv",row.names = TRUE)
+
+#just accidents
+Accidents_only_combined <- rbind.fill(CSV_ACCIDENT_2015_accident,CSV_ACCIDENT_2016_accident,CSV_ACCIDENT_2017_accident,CSV_ACCIDENT_2018_accident,CSV_ACCIDENT_2019_accident)
+View(Accidents_only_combined)
+
+write.csv(Accidents_only_combined,"/Users/davidrauch/Documents/work/Accidents_only_combined.csv",row.names = TRUE)
